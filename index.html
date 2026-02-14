@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>basslab by funky49</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="simRoot">
+
+    <header class="site-header warning-header" role="banner">
+      <div class="container header-inner" role="group" aria-label="Warning banner">
+        <button class="warn-btn" type="button" aria-label="Stop audio">WARNING</button>
+        <div class="warn-text">Not Gentle To Speakers</div>
+        <button class="warn-btn" type="button" aria-label="Stop audio">WARNING</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h2>Frequency Generator</h2>
+
+        <div class="knob-wrap">
+          <div
+            id="freqKnob"
+            class="knob"
+            role="slider"
+            tabindex="0"
+            aria-label="Frequency"
+            aria-valuemin="20"
+            aria-valuemax="120"
+            aria-valuenow="30"
+            aria-valuetext="30 Hz"
+          >
+            <div class="knob-indicator"></div>
+            <div class="knob-center">
+              <div class="knob-value" id="freqReadout">30</div>
+              <div class="knob-unit">Hz</div>
+            </div>
+          </div>
+
+          <div class="knob-meta">
+            <div>Range: 20–120 Hz</div>
+            <div>Low-pass filter: 120 Hz (always on)</div>
+          </div>
+        </div>
+
+        <div class="gen-controls">
+          <button id="startBtn" class="btn" type="button">Start</button>
+          <button id="stopBtn" class="btn secondary" type="button">Stop</button>
+        </div>
+      </section>
+
+      <section class="hero">
+        <h2>Audio Test</h2>
+        <p>
+          <button id="testToneBtn" class="btn" type="button">
+            Play 3030 Hz Test Tone (9s)
+          </button>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; <span id="year"></span> basslab.science</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

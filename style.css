@@ -1,0 +1,401 @@
+/* Basic starter stylesheet — edit colors, spacing, and fonts as needed */
+:root{
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #0ea5e9;
+  --warning-red: #ff3b30;
+  --container-width: 1100px;
+  --radius: 8px;
+  --gap: 1rem;
+  --base-font-size: 16px; /* base for rem calculations — increases on mobile */
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html{font-size:var(--base-font-size)}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  /* respect iPhone safe-area insets */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  -webkit-tap-highlight-color: rgba(0,0,0,0.03);
+  -webkit-text-size-adjust: 100%;
+} 
+.container{
+  max-width:var(--container-width);
+  margin:0 auto;
+  padding:1rem;
+}
+.site-header{
+  border-bottom:1px solid #e6e6e6;
+  background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+  /* leave room for notch/status bar on iPhone */
+  padding-top: calc(env(safe-area-inset-top) + 0.5rem);
+  padding-bottom: 0.5rem;
+}
+
+/* Warning-header: white background with red text/buttons; compact height for mobile */
+.site-header.warning-header{ background:#fff; border-bottom:1px solid #e6e6e6; padding-top: calc(env(safe-area-inset-top) + 0.25rem); padding-bottom: 0.25rem; }
+.site-header.warning-header .header-inner{ display:flex;align-items:center;justify-content:center;gap:0.5rem }
+.site-header.warning-header .warn-btn{ background:#000;color:var(--warning-red);border:1px solid var(--warning-red);padding:0.45rem 0.8rem;font-weight:800;letter-spacing:0.03em;border-radius:6px;min-height:44px;cursor:pointer;transition:transform .12s ease, opacity .12s ease; }
+.site-header.warning-header .warn-btn:focus{outline:3px solid rgba(255,59,48,0.12);outline-offset:2px}
+.site-header.warning-header .warn-text{ color:var(--warning-red); font-weight:700; font-size:1rem; }
+.site-header.warning-header .warn-btn.warn-pressed{ transform:scale(0.98); opacity:0.9; }
+
+.site-title{margin:0;padding:1rem 0;font-size:1.25rem}
+/* Single-page layout: center title and remove navigation styles */
+.site-header .container{display:flex;align-items:center;justify-content:center;gap:var(--gap)}
+
+.hero{padding:2rem 0}
+.hero h2{margin-top:0}
+.content{padding-bottom:2rem}
+.site-footer{border-top:1px solid #e6e6e6;padding:1rem 0;color:var(--muted)}
+.btn{background:var(--accent);color:white;border:none;padding:0.55rem 0.9rem;border-radius:6px;cursor:pointer}
+.btn:hover{opacity:0.95}
+
+.dev-tools{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.dev-btn{
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid #d1d5db;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.dev-btn:hover{ opacity: 0.9; }
+
+
+/* Small screens: header adjustments for single-page layout */
+@media (max-width:700px){
+  :root{ --base-font-size:18px; } /* increase base font size on mobile devices */
+  .site-header .container{align-items:center;justify-content:center}
+
+  /* compact header + iPhone-friendly tweaks */
+  .site-header.warning-header{ padding-top: calc(env(safe-area-inset-top) + 0.125rem); padding-bottom: 0.125rem }
+  .site-title{font-size:1.5rem}
+  .hero{padding:0.75rem 0}
+  .hero h2{font-size:1.15rem}
+  .hero p{font-size:0.95rem}
+
+  /* larger, full-width tap targets */
+  .btn{padding:0.75rem 1rem;min-height:44px;font-size:1rem;display:block;width:100%}
+  .warn-btn{padding:0.5rem 0.75rem;min-height:44px;font-size:0.95rem;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
+  .warn-text{font-size:0.95rem}
+
+  /* ensure container spacing accounts for safe-area insets */
+  .container{padding-left:calc(1rem + env(safe-area-inset-left));padding-right:calc(1rem + env(safe-area-inset-right))}
+
+  /* footer padding for home-indicator area */
+  .site-footer{padding-bottom:calc(1rem + env(safe-area-inset-bottom))}
+}
+
+/* Accessibility focus */
+:focus{outline:3px solid rgba(14,165,233,0.25);outline-offset:2px}
+
+/* Dark-mode hint (optional) */
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0b1220;--text:#e6edf3;--muted:#9aa4b2;--accent:#60a5fa}
+  .site-header, .site-footer{border-color:#1f2937}
+  .nav-list{background:#071427}
+  :focus{outline-color:rgba(96,165,250,0.35)}
+}
+
+/* iPhone 14 viewport simulator */
+#iphone14Viewport{
+  position: fixed;
+  width: 390px;
+  height: 844px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(14,165,233,0.9);
+  pointer-events: none;
+  z-index: 9999;
+  display: none;
+  box-shadow: 0 0 40px rgba(0,0,0,0.25);
+}
+
+/* Safe area (approximate notch + home indicator) */
+#iphone14Viewport .iphone-safe-area{
+  position: absolute;
+  top: 47px;     /* notch area */
+  bottom: 34px;  /* home indicator */
+  left: 0;
+  right: 0;
+  border: 2px dashed rgba(255,59,48,0.8);
+}
+
+/* Label */
+#iphone14Viewport .iphone-label{
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(14,165,233,0.9);
+  background: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Toggle */
+body.show-iphone14 #iphone14Viewport{
+  display: block;
+}
+
+/* ---------------------------------
+   iPhone 14 Simulator Mode (390×844)
+---------------------------------- */
+
+/* Toggle with body.sim-on */
+body.sim-on{
+  background: #0b1220; /* makes the "device" pop */
+}
+
+/* Center device on desktop */
+body.sim-on #simRoot{
+  width: 390px;
+  height: 844px;
+  margin: 0 auto;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;               /* allow scroll inside device */
+  background: var(--bg);
+  border-radius: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  outline: 2px solid rgba(14,165,233,0.8);
+}
+
+/* A notch + home-indicator safe-area overlay (visual only) */
+body.sim-on #simRoot::before{
+  content:"";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 0;
+}
+
+/* Optional: show safe-area guides */
+body.sim-on #simRoot::after{
+  content:"";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 28px;
+  /* safe-area lines: top 47px, bottom 34px */
+  box-shadow:
+    inset 0 47px 0 0 rgba(255,59,48,0.08),
+    inset 0 -34px 0 0 rgba(255,59,48,0.08);
+}
+
+/* Make containers fit nicely in the smaller viewport */
+body.sim-on .container{
+  max-width: 100%;
+}
+
+/* Keep header compact in simulator */
+body.sim-on .site-header.warning-header{
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+/* Ensure footer doesn't hug bottom awkwardly */
+body.sim-on .site-footer{
+  padding-bottom: 1.25rem;
+}
+
+.site-header.warning-header{
+  background: #111;
+  border-bottom: 2px solid var(--warning-red);
+  padding-top: calc(env(safe-area-inset-top) + 0.25rem);
+  padding-bottom: 0.25rem;
+}
+
+.site-header.warning-header .header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.75rem;
+}
+
+.site-header.warning-header .warn-btn{
+  background:#000;
+  color:var(--warning-red);
+  border:2px solid var(--warning-red);
+  padding:0.4rem 0.8rem;
+  font-weight:800;
+  letter-spacing:0.05em;
+  border-radius:6px;
+  min-height:44px;
+  cursor:pointer;
+  transition: transform .1s ease, background .1s ease;
+}
+
+.site-header.warning-header .warn-btn:hover{
+  background: rgba(255,59,48,0.1);
+}
+
+.site-header.warning-header .warn-text{
+  color:var(--warning-red);
+  font-weight:700;
+  font-size:0.95rem;
+  text-align:center;
+}
+
+body.active-audio .site-header.warning-header{
+  box-shadow: 0 0 18px rgba(255,59,48,0.4);
+}
+
+body.active-audio .warn-text{
+  text-shadow: 0 0 12px rgba(255,59,48,0.6);
+}
+/* ---------------------------------
+   iPhone 14 Browser Outline
+---------------------------------- */
+
+
+.dev-tools{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.dev-btn{
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid #d1d5db;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.dev-btn:hover{ opacity: 0.9; }
+
+/* ---------- Generator UI (basic) ---------- */
+.gen-controls{
+  display:flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items:center;
+}
+
+.btn.secondary{
+  background: transparent;
+  color: var(--text);
+  border: 1px solid #d1d5db;
+}
+
+.knob-wrap{
+  display:flex;
+  gap: 1.25rem;
+  align-items:center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.knob{
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  position: relative;
+  user-select: none;
+  touch-action: none;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.35));
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+@media (prefers-color-scheme: dark){
+  .knob{
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border-color:#1f2937;
+  }
+  .btn.secondary{ border-color:#334155; color: var(--text); }
+}
+
+.knob:focus{
+  outline: 3px solid rgba(14,165,233,0.25);
+  outline-offset: 4px;
+}
+
+.knob-indicator{
+  position:absolute;
+  width: 8px;
+  height: 55px;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  transform-origin: 50% 76px;
+  border-radius: 6px;
+  background: rgba(17,24,39,0.75);
+}
+
+@media (prefers-color-scheme: dark){
+  .knob-indicator{ background: rgba(230,237,243,0.70); }
+}
+
+.knob-center{
+  width: 110px;
+  height: 110px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.55);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap: 2px;
+}
+
+@media (prefers-color-scheme: dark){
+  .knob-center{
+    border-color: rgba(255,255,255,0.10);
+    background: rgba(0,0,0,0.20);
+  }
+}
+
+.knob-value{
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.knob-unit{
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.knob-meta{
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+
+#freqKnob {
+  width: 180px !important;
+  height: 180px !important;
+  border-radius: 999px !important;
+  border: 4px solid red !important;
+}
